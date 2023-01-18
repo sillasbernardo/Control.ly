@@ -1,9 +1,15 @@
 /* Requires */
 const express = require('express');
+require('dotenv').config();
+const mongoose = require('mongoose');
 
-const app = express();
 const printersRoutes = require('./routes/printersRoutes');
 /* End */
+
+
+const app = express();
+mongoose.set('strictQuery', true);
+
 
 /* Middlewares */
 app.use((req, res, next) => {
@@ -16,4 +22,9 @@ app.use((req, res, next) => {
 app.use('/api/printers', printersRoutes);
 /* End */
 
-app.listen(process.env.PORT || 5000, console.log(`Server running on port 5000`));
+
+mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.pczvzsn.mongodb.net/?retryWrites=true&w=majority`)
+	.then(() => {
+		app.listen(process.env.PORT || 5000);
+	})
+	.catch(err => console.log(err));

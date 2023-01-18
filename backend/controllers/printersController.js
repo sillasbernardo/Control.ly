@@ -1,3 +1,9 @@
+/* Requires */
+const Printer = require('../models/printerModel');
+const HttpError = require('../models/http-error');
+/* End */
+
+
 /* CRUD Functions */
 const getAllPrinters = (req, res, next) => {
 	res.send('Get all printers');
