@@ -1,23 +1,23 @@
 /* Requires */
-const express = require('express');
-const { check } = require('express-validator');
+import { Router } from 'express';
+import { check } from 'express-validator';
 
-const router = express.Router();
-const printersController = require('../controllers/printersController');
+const router = Router();
+import { getAllPrinters, getPrinter, createPrinter, updatePrinter, deletePrinter } from '../controllers/printersController';
 /* End */
 
 /* Routes */
-router.get('/', printersController.getAllPrinters);
+router.get('/', getAllPrinters);
 
-router.get('/:pid', printersController.getPrinter);
+router.get('/:pid', getPrinter);
 
-router.post('/', printersController.createPrinter);
+router.post('/', createPrinter);
 
-router.patch('/:pid', printersController.updatePrinter);
+router.patch('/:pid', updatePrinter);
 
-router.delete('/:pid', printersController.deletePrinter);
+router.delete('/:pid', deletePrinter);
 /* End */
 
 /* Exports */
-module.exports = router;
+export default router;
 /* End */

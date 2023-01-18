@@ -1,14 +1,14 @@
 /* Requires */
-const express = require('express');
+import express from 'express';
 require('dotenv').config();
-const mongoose = require('mongoose');
+import { set, connect } from 'mongoose';
 
-const printersRoutes = require('./routes/printersRoutes');
+import printersRoutes from './routes/printersRoutes';
 /* End */
 
 
 const app = express();
-mongoose.set('strictQuery', true);
+set('strictQuery', true);
 
 
 /* Middlewares */
@@ -23,7 +23,7 @@ app.use('/api/printers', printersRoutes);
 /* End */
 
 
-mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.pczvzsn.mongodb.net/?retryWrites=true&w=majority`)
+connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.pczvzsn.mongodb.net/?retryWrites=true&w=majority`)
 	.then(() => {
 		app.listen(process.env.PORT || 5000);
 	})

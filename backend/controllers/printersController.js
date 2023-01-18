@@ -1,6 +1,6 @@
 /* Requires */
-const Printer = require('../models/printerModel');
-const HttpError = require('../models/http-error');
+import Printer from '../models/printerModel';
+import HttpError from '../models/http-error';
 /* End */
 
 
@@ -28,9 +28,11 @@ const deletePrinter = (req, res, next) => {
 
 
 /* Exports */
-exports.getAllPrinters = getAllPrinters;
-exports.getPrinter = getPrinter;
-exports.createPrinter = createPrinter;
-exports.updatePrinter = updatePrinter;
-exports.deletePrinter = deletePrinter;
+export {
+	getAllPrinters,
+	getPrinter,
+	createPrinter,
+	updatePrinter,
+	deletePrinter
+}
 /* End */
