@@ -1,10 +1,10 @@
-/* Imports */
-import { Schema, model, Types } from "mongoose";
+/* Requires */
+const { Schema, model } = require('mongoose');
 
-/* Model */
+/* Schema */
 const printersSchema = new Schema({
 	name: { type: String, required: true, unique: true },
 	ip: { type: String, required: true, unique: true }
 })
 
-export default model('Printer', printersSchema);
+module.exports = model('Printers', printersSchema);
