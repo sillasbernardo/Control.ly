@@ -12,7 +12,7 @@ const getPeople = async (req, res, next) => {
 		people = await People.find();
 	} catch (error) {
 		return next(
-			HttpError.error01()
+			new HttpError(`Could not find people.`, 404)
 		)
 	}
 
@@ -27,8 +27,7 @@ const getPerson = async (req, res, next) => {
 		person = await People.findById(personId);
 	} catch (error) {
 		return next(
-			// new HttpError(`Something went wrong, could not find person.`, 500)
-			HttpError.error01()
+			new HttpError(`Something went wrong, could not find person.`, 500)
 		)
 	}
 
