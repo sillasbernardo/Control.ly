@@ -54,7 +54,7 @@ const createPerson = async (req, res, next) => {
 	// Check if person exist
 	let existingPerson;
 	try {
-		existingPerson = await People.findOne({ name: name, sector: sector })
+		existingPerson = await People.findOne({ name: name })
 	} catch (error) {
 		return next(
 			new HttpError(`Adding person failed, please try again later.`, 500)

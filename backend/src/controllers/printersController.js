@@ -78,11 +78,7 @@ const createPrinter = async (req, res, next) => {
 		)
 	}
 
-	res.status(201).json({
-		printerId: newPrinter.id,
-		name: newPrinter.name,
-		ip: newPrinter.ip
-	})
+	res.status(201).json({ printer: newPrinter })
 
 }
 

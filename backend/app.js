@@ -5,6 +5,7 @@ const dotenv = require('dotenv');
 
 const printersRoutes = require('./src/routes/printersRoutes');
 const peopleRoutes = require('./src/routes/peopleRoutes');
+const remoteMachinesRoutes = require('./src/routes/remoteMachinesRoutes');
 const HttpError = require('./src/models/httpError');
 
 /* Setup */
@@ -14,7 +15,7 @@ dotenv.config();
 
 /* Middlewares */
 app.use(express.json())
-app.use(express.urlencoded());
+app.use(express.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 
 app.use('/api/printers', printersRoutes);
 app.use('/api/people', peopleRoutes);
+app.use('/api/remotes/profiles', remoteMachinesRoutes);
 
 app.use((req, res, next) => {
 	throw new HttpError(`Could not find this route.`, 404);
