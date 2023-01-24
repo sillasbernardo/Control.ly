@@ -3,9 +3,9 @@ const { Schema, model, Types } = require('mongoose');
 
 /* Schema */
 const peopleSchema = new Schema({
-	name: { type: String, required: true, unique: true },
-	sector: { type: String, required: true, unique: true },
-	remoteMachines: [{ type: Types.ObjectId, unique: true, ref: 'RemoteMachines' }]
+	name: { type: String, required: true},
+	sector: { type: String, required: true},
+	remoteMachines: [{ type: Types.ObjectId, ref: 'RemoteMachines' }]
 })
 
 /* Exports */

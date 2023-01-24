@@ -3,8 +3,8 @@ const { Schema, model, Types } = require('mongoose');
 
 /* Schema */
 const remoteMachinesSchema = new Schema({
-	anydeskId: { type: String, required: true, unique: true },
-	owner: [{ type: Types.ObjectId, required: true, unique: true, ref: 'People' }]
+	anydeskId: { type: String, required: true},
+	owner: { type: Types.ObjectId, required: true, ref: 'People' }
 })
 
 /* Exports */

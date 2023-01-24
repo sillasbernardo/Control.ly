@@ -6,6 +6,7 @@ const dotenv = require('dotenv');
 const printersRoutes = require('./src/routes/printersRoutes');
 const peopleRoutes = require('./src/routes/peopleRoutes');
 const remoteMachinesRoutes = require('./src/routes/remoteMachinesRoutes');
+const usersRoutes = require('./src/routes/usersRoutes');
 const HttpError = require('./src/models/httpError');
 
 /* Setup */
@@ -27,6 +28,7 @@ app.use((req, res, next) => {
 app.use('/api/printers', printersRoutes);
 app.use('/api/people', peopleRoutes);
 app.use('/api/remotes/profiles', remoteMachinesRoutes);
+app.use('/api/users')
 
 app.use((req, res, next) => {
 	throw new HttpError(`Could not find this route.`, 404);

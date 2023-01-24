@@ -130,12 +130,53 @@ const updateRemoteMachine = async (req, res, next) => {
 		)
 	}
 
-	console.log(remoteMachine.owner.id)
+	remoteMachine.anydeskId = anydeskId;
+	remoteMachine.owner = ownerId;
+
+	try {
+		await remoteMachine.save();
+	} catch (error) {
+		return next(
+			new HttpError(`Something went wrong, could not update remote machine.`, 500)
+		)
+	}
+
+	res.status(200).json({ remoteMachine: remoteMachine.toObject({ getters: true }) })
 
 }
 
-const deleteRemoteMachine = (req, res, next) => {
+const deleteRemoteMachine = async (req, res, next) => {
+	const remoteMachineId = req.params.rid;
+	
+	let remoteMachine;
+	try{
+		remoteMachine = await RemoteMachines.findById(remoteMachineId).populate('owner');
+	} catch{
+		return next(
+			new HttpError(`Error on processing remote machine object.`, 500)
+		)
+	}
 
+	if (!remoteMachine){
+		return next(
+			new HttpError(`Could not find a remote machine for this id.`, 404)
+		)
+	}
+
+	try {
+		const sess = await mongoose.startSession();
+		sess.startTransaction();
+		await remoteMachine.remove({ session: sess });
+		remoteMachine.owner.remoteMachines.pull(remoteMachine);
+		await remoteMachine.owner.save({ session: sess });
+		await sess.commitTransaction();
+	} catch (error) {
+		return next(
+			new HttpError(`Could not delete remote machine.`, 500)
+		)
+	}
+
+	res.status(200).json({ message: 'Remote machine deleted.' })
 }
 
 /* Exports */
