@@ -42,8 +42,8 @@ const getPerson = async (req, res, next) => {
 
 const createPerson = async (req, res, next) => {
 	// Check for errors in request
-	const error = validationResult(req);
-	if (!error.isEmpty){
+	const errors = validationResult(req);
+	if (!errors.isEmpty()){
 		return next(
 			new HttpError(`Invalid inputs passed, please check your data.`, 422)
 		)
@@ -87,8 +87,8 @@ const createPerson = async (req, res, next) => {
 
 const updatePerson = async (req, res, next) => {
 	// Check for errors in request
-	const error = validationResult(req);
-	if (!error.isEmpty){
+	const errors = validationResult(req);
+	if (!errors.isEmpty()){
 		return next(
 			new HttpError(`Invalid inputs passed, please check your data.`, 422)
 		)

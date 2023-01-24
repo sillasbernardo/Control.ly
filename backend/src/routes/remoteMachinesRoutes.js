@@ -13,8 +13,7 @@ router.get('/:rid', remoteMachinesController.getRemoteMachine);
 
 router.post('/', [
 	check('anydeskId').notEmpty(),
-	check('ownerName').notEmpty(),
-	check('ownerSector').notEmpty()
+	check('ownerId').notEmpty()
 ], remoteMachinesController.createRemoteMachine);
 
 router.patch('/:rid', [

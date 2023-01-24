@@ -13,13 +13,13 @@ router.get('/', peopleController.getPeople);
 router.get('/:ppid', peopleController.getPerson);
 
 router.post('/', [
-	check('name').not().isEmpty(),
-	check('sector').not().isEmpty()
+	check('name').notEmpty(),
+	check('sector').notEmpty(),
 ], peopleController.createPerson);
 
 router.patch('/:ppid', [
-	check('name').not().isEmpty(),
-	check('sector').not().isEmpty()
+	check('name').notEmpty(),
+	check('sector').notEmpty(),
 ], peopleController.updatePerson);
 
 router.delete('/:ppid', peopleController.deletePerson);

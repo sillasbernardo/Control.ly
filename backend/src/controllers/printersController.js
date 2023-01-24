@@ -42,8 +42,8 @@ const getPrinter = async (req, res, next) => {
 
 const createPrinter = async (req, res, next) => {
 	// Check for errors in request
-	const error = validationResult(req);
-	if (!error.isEmpty){
+	const errors = validationResult(req);
+	if (!errors.isEmpty()){
 		return next(
 			new HttpError(`Invalid inputs passed, please check your data.`, 422)
 		);
@@ -83,10 +83,10 @@ const createPrinter = async (req, res, next) => {
 }
 
 const updatePrinter = async (req, res, next) => {
-	const error = validationResult(req);
+	const errors = validationResult(req);
 
 	// Check for errors in request
-	if (!error.isEmpty){
+	if (!errors.isEmpty()){
 		return next(
 			new HttpError(`Invalid inputs passed, please check your data.`, 422)
 		)

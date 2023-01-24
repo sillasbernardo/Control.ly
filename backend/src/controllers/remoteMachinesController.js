@@ -44,8 +44,8 @@ const getRemoteMachine = async (req, res, next) => {
 
 const createRemoteMachine = async (req, res, next) => {
 	// Check for input errors
-	const error = validationResult(req);
-	if (!error.isEmpty){
+	const errors = validationResult(req);
+	if (!errors.isEmpty()){
 		return next(
 			new HttpError(`Invalid inputs passed, please check your data.`, 422)
 		)
@@ -105,8 +105,8 @@ const createRemoteMachine = async (req, res, next) => {
 }
 
 const updateRemoteMachine = async (req, res, next) => {
-	const error = validationResult(req);
-	if (!error.isEmpty){
+	const errors = validationResult(req);
+	if (!errors.isEmpty()){
 		return next(
 			new HttpError(`Invalid inputs passed, please try again`, 500)
 		)
