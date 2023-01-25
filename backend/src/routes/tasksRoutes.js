@@ -12,6 +12,8 @@ router.get('/', tasksController.getAllTasks);
 
 router.get('/:tid', tasksController.getTask);
 
+router.post('/byUser', tasksController.getTasksByUser);
+
 router.post('/', [
 	check('title', 'Title cannot be empty.').notEmpty(),
 	check('description', 'Description cannot be empty.').notEmpty(),

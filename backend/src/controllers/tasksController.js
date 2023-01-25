@@ -8,11 +8,46 @@ const HttpError = require('../models/httpError');
 
 /* Functions */
 const getAllTasks = async (req, res, next) => {
+	let tasks;
+	try {
+		tasks = await Task.find();
+	} catch (error) {
+		return next(
+			new HttpError(`Could not find tasks.`, 404)
+		)
+	}
 
+	res.status(200).json({ tasks: tasks.map((task) => task.toObject({ getters: true })) })
+}
+
+const getTasksByUser = async (req, res, next) => {
+	const { userId } = req.body;
+
+	let tasks;
+	try {
+		tasks = await Task.find({ responsiblePerson: userId });
+	} catch (error) {
+		return next(
+			new HttpError(`Could not find tasks.`, 404)
+		)
+	}
+
+	res.status(200).json({ tasks: tasks.map((task) => task.toObject({ getters: true })) })
 }
 
 const getTask = async (req, res, next) => {
+	const taskId = req.params.tid;
 
+	let task;
+	try {
+		task = await Task.findById(taskId);
+	} catch (error) {
+		return next(
+			new HttpError(`Could not find task.`, 404)
+		)
+	}
+
+	res.status(200).json({ task: task.toObject({ getters: true }) });
 }
 
 const createTask = async (req, res, next) => {
@@ -93,7 +128,7 @@ const updateTask = async (req, res, next) => {
 		status
 	} = req.body;
 
-	let loggedInUser = "63d01da7f1180c0ca53de27d"; // Mike
+	let loggedInUser = "63d013bbb3aacca45623fcce"; // Mike
 	/* Check if loggedInUser is creator */
 
 	let task;
@@ -176,7 +211,7 @@ const deleteTask = async (req, res, next) => {
 		)
 	}
 
-	let loggedInUser;
+	let loggedInUser = "63d013bbb3aacca45623fcce";
 	/* Check if loggedin user is the creator */
 
 	if (loggedInUser === task.creator.toString()){
@@ -198,16 +233,12 @@ const deleteTask = async (req, res, next) => {
 	} else {
 		res.status(401).json({ message: 'You are not authorized to delete this task' })
 	}
-
-	/* 
-		Leftoff: Test if non creator can delete task
-	*/
-
 }
 
 /* Exports */
 exports.getAllTasks = getAllTasks;
 exports.getTask = getTask;
+exports.getTasksByUser = getTasksByUser;
 exports.createTask = createTask;
 exports.updateTask = updateTask;
 exports.deleteTask = deleteTask;
